@@ -419,6 +419,9 @@ Dropped support for PostgreSQL 9.6
 Upstream support for PostgreSQL 9.6 ends in November 2021. Django 4.0 supports
 PostgreSQL 10 and higher.
 
+Also, the minimum supported version of ``psycopg2`` is increased from 2.5.4 to
+2.8.4, as ``psycopg2`` 2.8.4 is the first release to support Python 3.8.
+
 Dropped support for Oracle 12.2 and 18c
 ---------------------------------------
 
@@ -488,6 +491,15 @@ some cases.
 :class:`~django.views.generic.edit.FormMixin` to handle POST requests. As a
 consequence, any custom deletion logic in ``delete()`` handlers should be
 moved to ``form_valid()``, or a shared helper method, if required.
+
+Table and column naming scheme changes on Oracle
+------------------------------------------------
+
+Django 4.0 inadvertently changed the table and column naming scheme on Oracle.
+This causes errors for models and fields with names longer than 30 characters.
+Unfortunately, renaming some Oracle tables and columns is required. Use the
+upgrade script in :ticket:`33789 <33789#comment:15>` to generate ``RENAME``
+statements to change naming scheme.
 
 Miscellaneous
 -------------
